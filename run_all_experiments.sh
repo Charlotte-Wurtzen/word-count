@@ -1,4 +1,21 @@
-for file in abyss isles last sierra; do
-    python3 code/count.py data/${file}.txt -o results/${file}.json
-    python3 code/plot.py results/${file}.json -o figures/${file}.png
+#! /bin/bash
+
+if [[ -z "${DATADIR}" ]]; then
+  DATADIR="data"
+fi
+
+if [[ -z "${RESULTSDIR}" ]]; then
+  RESULTSDIR="results"
+fi
+
+if [[ -z "${FIGDIR}" ]]; then
+  FIGDIR="figures"
+fi
+
+mkdir -p ${RESULTSDIR}
+mkdir -p ${FIGDIR}
+
+for title in abyss isles last sierra; do
+    python3 code/count.py ${DATADIR}/${title}.txt -o ${RESULTSDIR}/${title}.json
+    python code/plot.py ${RESULTSDIR}/${title}.json -o ${FIGDIR}/${title}.png
 done
